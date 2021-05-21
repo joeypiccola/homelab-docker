@@ -1,0 +1,15 @@
+version: "3"
+services:
+  dynamicdns:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: dynamicdns:latest
+    container_name: dynamicdns
+    volumes:
+      - ./scripts/:/scripts
+    restart: unless-stopped
+    environment:
+      - CRON_STRINGS=*/10 * * * * pwsh /scripts/Update-DNS.ps1 >> /var/log/cron.log 2>&1
