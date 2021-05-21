@@ -1,0 +1,4 @@
+*.private.pem
+storage/
+abandoned_*
+certs/

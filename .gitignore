@@ -1,0 +1,8 @@
+*.private.pem
+storage/
+abandoned_*
+powershell_nuget
+nginx_test
+telegraf.conf
+.cifs_creds
+pykms
