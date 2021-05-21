@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nginx:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./config_data/:/etc/nginx
+    ports:
+      - 443:443
+    restart: unless-stopped

@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  influxdb:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: influxdb
+    image: influxdb:1.7.10
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "2003:2003"
+    volumes:
+      - /home/joey/docker_apps/influxdb_grafana/storage/influxdb:/var/lib/influxdb
+      - /home/joey/docker_apps/influxdb_grafana/config_data/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    restart: always
+
+  grafana:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/joey/docker_apps/influxdb_grafana/storage/grafana:/var/lib/grafana
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-piechart-panel
+    restart: always
+    depends_on:
+      - influxdb
+
+  telegraf:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: telegraf_docker
+    image: telegraf:latest
+    network_mode: "host"
+    volumes:
+      - /home/joey/docker_apps/influxdb_grafana/config_data/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  chronograf:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: chronograf
+    image: chronograf:latest
+    volumes:
+      - /home/joey/docker_apps/influxdb_grafana/storage/chronograf:/var/lib/chronograf/
+    ports:
+      - "8888:8888"
+    restart: always
+    depends_on:
+      - influxdb
