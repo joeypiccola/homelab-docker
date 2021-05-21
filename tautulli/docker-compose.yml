@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  tautulli:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: tautulli/tautulli:latest
+    container_name: tautulli
+    volumes:
+       - '/home/joey/docker_storage/tautulli:/config'
+    ports:
+      - '8181:8181'
+    environment:
+      TZ: 'America/Denver'
+      PGID: 1001
+      PUID: 1001
+    restart: always

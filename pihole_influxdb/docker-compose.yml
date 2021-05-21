@@ -1,0 +1,20 @@
+version: "2"
+services:
+  piholeinflux:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: registry.gitlab.com/janw/pi-hole-influx
+    container_name: piholeinflux
+    restart: unless-stopped
+    environment:
+
+      # Replace details with your InfluxDB's hostname and credentials
+      PIHOLE_INFLUXDB_HOST: "dockerlin.piccola.us"
+      PIHOLE_INFLUXDB_PORT: "8086"
+      PIHOLE_INFLUXDB_DATABASE: "pihole"
+
+      # Replace with your Pi-Hole's address including path to API below
+      PIHOLE_INSTANCES: "pihole=http://dockerlin.piccola.us:9090/admin/api.php"

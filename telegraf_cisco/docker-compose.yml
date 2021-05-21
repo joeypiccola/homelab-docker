@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+
+  telegraf:
+    container_name: telegraf_cisco
+    image: nuntz/telegraf-snmp
+    volumes:
+      - /home/joey/docker_apps/telegraf_cisco/config_data/telegraf.conf:/etc/telegraf/telegraf.conf
+    restart: always

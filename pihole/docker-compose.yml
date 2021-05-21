@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  pihole:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: pihole/pihole:latest
+    container_name: pihole
+    volumes:
+       - '/home/joey/docker_storage/pihole/pihole:/etc/pihole'
+       - '/home/joey/docker_storage/pihole/dnsmasq.d:/etc/dnsmasq.d'
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "9090:80/tcp"
+    environment:
+      TZ: 'America/Denver'
+    dns:
+      - 127.0.0.1
+      - 8.8.8.8
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped

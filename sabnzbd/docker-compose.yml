@@ -1,0 +1,22 @@
+---
+version: "2"
+services:
+  sabnzbd:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: linuxserver/sabnzbd:latest
+    mem_limit: 4294967296
+    container_name: sabnzbd
+    environment:
+      - TZ=America/Denver
+      - PGID=1001
+      - PUID=1001
+    volumes:
+      - /home/joey/docker_apps/sabnzbd/storage/:/config
+      - /media/cifs/freenas.piccola.us/media/:/media
+    ports:
+      - 8082:8080
+    restart: unless-stopped

@@ -1,0 +1,21 @@
+version: "3"
+services:
+  radarr:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      TZ: 'America/Denver'
+      PGID: 1001
+      PUID: 1001
+      UMASK_SET: 022
+    volumes:
+      - /home/joey/docker_apps/radarr/storage/:/config
+      - /media/cifs/freenas.piccola.us/media/:/media
+    ports:
+      - 7878:7878
+    restart: unless-stopped

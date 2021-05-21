@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  telegraf:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: telegraf_edgerouter
+    image: nuntz/telegraf-snmp
+    volumes:
+      - /home/joey/docker_apps/telegraf_edgerouter/config_data/telegraf.conf:/etc/telegraf/telegraf.conf
+    restart: always
