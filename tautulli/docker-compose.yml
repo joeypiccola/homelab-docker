@@ -17,4 +17,4 @@ services:
       TZ: 'America/Denver'
       PGID: 1001
       PUID: 1001
-    restart: always
+    restart: unless-stopped

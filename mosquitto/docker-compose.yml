@@ -1,0 +1,40 @@
+version: "3"
+services:
+  mosquitto:
+    container_name: mosquitto
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: eclipse-mosquitto
+    volumes:
+      - /home/joey/docker_apps/mosquitto/config_data/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /home/joey/docker_apps/mosquitto/config_data/config/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
+      - /home/joey/docker_apps/mosquitto/config_data/data:/mosquitto/data
+      - /home/joey/docker_apps/mosquitto/config_data/log:/mosquitto/log
+    ports:
+      - 1883:1883
+
+
+# go to mosquitto
+#  > cd /home/joey/docker_apps/mosquitto/config_data
+# create dirs
+#  > mkdir log data config
+# create conf and passwd files
+#  > touch ./config/mosquitto.conf ./config/mosquitto.passwd
+# write config file contents
+#  > echo "persistence true
+#  > persistence_location /mosquitto/data/
+#  > log_dest file /mosquitto/log/mosquitto.log
+#  > password_file /mosquitto/config/mosquitto.passwd
+#  > listener 1883" >> ./config/config/mosquitto.conf
+# set rights up on ./config files
+#  > chown -R 1883:1883 ./config
+#  > chmod -R 644 ./config
+# start container
+#  > docker-compose up -d
+# create mqtt user
+#  > docker-compose exec mosquitto mosquitto_passwd -b /mosquitto/config/mosquitto.passwd ha_mqtt SECRET$
+# retart container
+#  > docker-compose restart

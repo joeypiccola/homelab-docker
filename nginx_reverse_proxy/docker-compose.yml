@@ -12,5 +12,5 @@ services:
     volumes:
       - ./config_data/:/etc/nginx
     ports:
-      - 443:443
-    restart: unless-stopped
+      - 65443:443
+    #restart: unless-stopped

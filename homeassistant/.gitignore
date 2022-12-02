@@ -1,0 +1,6 @@
+config_data
+postgres
+homeassistant
+code-server
+postgres.env
+*.mp3

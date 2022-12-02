@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  # used by the home assistant recorder integration
+  postgres:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: postgres
+    image: postgres:14.1
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - ./postgres.env # contains POSTGRES_USER, POSTGRES_PASSWORD, and POSTGRES_DB
+    volumes:
+      - /home/joey/docker_apps/homeassistant/postgres:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+
+  # home assistant itself
+  homeassistant:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /home/joey/docker_apps/homeassistant/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TZ: America/Denver
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    depends_on:
+      - "postgres"
+      - "nginx-ha-web"
+
+  # simple webserver that hosts mp3 files used by custom doorbell automation
+  nginx-ha-web:
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "50m"
+            max-file: "5"
+    image: nginx:latest
+    restart: always
+    container_name: nginx-ha-web
+    volumes:
+      - ./nginx-ha-web/:/usr/share/nginx/html
+    ports:
+      - 6475:80

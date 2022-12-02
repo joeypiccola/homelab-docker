@@ -7,3 +7,4 @@ telegraf.conf
 .cifs_creds
 pykms
 tautulli_influxdb_export
+old_stuff*
