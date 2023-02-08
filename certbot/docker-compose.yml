@@ -1,6 +1,6 @@
 version: '3'
-services:
 
+services:
   certbot:
     image: certbot/dns-cloudflare
     volumes:
@@ -17,10 +17,8 @@ services:
 
 
 # > cd certbot
-# to test vars in docker-compose file
-# > docker-compose --env-file certbot.env config
-# run this docker compose file. it will execute and exit. will update what's in live
-# > docker compose up --env-file certbot.env
+# run this docker compose file. it will execute and exit. will update what's in live. env var substitution via .env
+# > docker-compose up
 # concat the files to make a cert just for haproxy (this is a special format).
 # > sudo cat /home/joey/docker_apps/certbot/config_data/live/piccola.us/fullchain.pem /home/joey/docker_apps/certbot/config_data/live/piccola.us/privkey.pem | sudo tee /home/joey/docker_apps/certbot/config_data/live/piccola.us/cert.pem
 # take the output and this is what goes in /home/joey/docker_apps/haproxy/config_data/cert.pem

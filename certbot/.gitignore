@@ -1,2 +1,3 @@
 config_data
 certbot.env
+.env
