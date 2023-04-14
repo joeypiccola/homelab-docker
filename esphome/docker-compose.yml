@@ -2,7 +2,9 @@ version: '3'
 
 services:
   esphome:
-    image: esphome/esphome
+    image: esphome/esphome:latest
+    # environment:
+    #   - ESPHOME_DASHBOARD_USE_PING=true
     volumes:
       - /home/joey/docker_apps/esphome/config_data:/config:rw
       # Use local time for logging timestamps
