@@ -20,4 +20,5 @@ services:
 # > docker-compose up
 # concat the files to make a cert just for haproxy (this is a special format). write the file to /home/joey/docker_apps/haproxy/config_data/cert.pem
 # > sudo cat /home/joey/docker_apps/certbot/config_data/live/piccola.us/fullchain.pem /home/joey/docker_apps/certbot/config_data/live/piccola.us/privkey.pem | sudo tee /home/joey/docker_apps/certbot/config_data/live/piccola.us/cert.pem
-# cd ../haproxy/; docker-compose restart
+# restart haproxy
+# > cd ../haproxy/; docker-compose restart
