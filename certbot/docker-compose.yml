@@ -15,10 +15,9 @@ services:
       --force-renewal
       -d ${D1}
 
-
 # > cd certbot
 # run this docker compose file. it will execute and exit. will update what's in live. env var substitution via .env
 # > docker-compose up
-# concat the files to make a cert just for haproxy (this is a special format).
+# concat the files to make a cert just for haproxy (this is a special format). write the file to /home/joey/docker_apps/haproxy/config_data/cert.pem
 # > sudo cat /home/joey/docker_apps/certbot/config_data/live/piccola.us/fullchain.pem /home/joey/docker_apps/certbot/config_data/live/piccola.us/privkey.pem | sudo tee /home/joey/docker_apps/certbot/config_data/live/piccola.us/cert.pem
-# take the output and this is what goes in /home/joey/docker_apps/haproxy/config_data/cert.pem
+# cd ../haproxy/; docker-compose restart
